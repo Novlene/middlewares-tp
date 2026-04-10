@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="header">
+    <h1>Add New Incident</h1>
+    <button class="btn btn-secondary" routerLink="/">
+      ← Back to List
+    </button>
+  </div>
+
+  <div class="form-container">
+    <form [formGroup]="incidentForm" (ngSubmit)="onSubmit()">
+      <!-- Title Field -->
+      <div class="form-group">
+        <label for="title">Title <span class="required">*</span></label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="form-control"
+          [class.invalid]="isFieldInvalid('title')"
+          placeholder="Enter incident title"
+        />
+        <div *ngIf="isFieldInvalid('title')" class="error-message">
+          {{ getErrorMessage('title') }}
+        </div>
+      </div>
+
+      <!-- Description Field -->
+      <div class="form-group">
+        <label for="description">Description <span class="required">*</span></label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          [class.invalid]="isFieldInvalid('description')"
+          rows="5"
+          placeholder="Enter detailed description of the incident"
+        ></textarea>
+        <div *ngIf="isFieldInvalid('description')" class="error-message">
+          {{ getErrorMessage('description') }}
+        </div>
+      </div>
+
+      <!-- Status Field -->
+      <div class="form-group">
+        <label for="status">Status <span class="required">*</span></label>
+        <select
+          id="status"
+          formControlName="status"
+          class="form-control"
+        >
+          <option *ngFor="let option of statusOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-error">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isSubmitting"
+        >
+          {{ isSubmitting ? 'Creating...' : 'Create Incident' }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetForm()"
+          [disabled]="isSubmitting"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <!-- Form Info -->
+    <div class="form-info">
+      <h3>Instructions:</h3>
+      <ul>
+        <li>Title must be at least 3 characters long</li>
+        <li>Description must be at least 10 characters long</li>
+        <li>Select an appropriate status for the incident</li>
+        <li>All fields marked with <span class="required">*</span> are required</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+create : http://localhost:3000/todos
+Lister: same
+recherche et filtrage :http://localhost:3000/todos?search=TP&status=En%20attente
+pagination:http://localhost:3000/todos?page=1&limit=1
+todo par ID: http://localhost:3000/todos/1
